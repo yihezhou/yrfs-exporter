@@ -70,8 +70,6 @@ func (c *ClusterMetrics) Collect(ch chan<- prometheus.Metric) {
 	metaData["online_metas"] = uint64(onlineNodes)
 	metaData["meta_capacity_total"] = resp.DiskSpaceTotal / uint64(metaCopies)
 	metaData["meta_capacity_used"] = resp.DiskSpaceUsed / uint64(metaCopies)
-	metaData["meta_capacity_available"] = resp.DiskSpaceFree / uint64(metaCopies)
-	metaData["meta_inode_capacity_used"] = resp.InodeSpaceUsed / uint64(metaCopies)
 
 	for k, currentValue := range metaData {
 		ch <- prometheus.MustNewConstMetric(c.metrics[k], prometheus.GaugeValue, float64(currentValue), "cluster")
